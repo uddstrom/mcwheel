@@ -1,5 +1,5 @@
 import Wheel from "./Wheel.js";
-import gl from "gamelib";
+import Timer from "./Timer.js";
 import { setupInputControl } from "./input.js";
 import { updateItemsList } from "./itemsList.js";
 import { getFromStore } from "./store.js";
@@ -18,6 +18,6 @@ function update(deltaTime) {
     wheel.draw(ctx);
 }
 
-var timer = new gl.Timer(update);
+var timer = new Timer(update);
 timer.listenTo(window);
 timer.start();
