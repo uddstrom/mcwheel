@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# i do this to every directory i am in
+# 1 is neovim
+# 2 is where i run commands
+#
+# could be cool!!
+# this means i could create a neovim plugin to shoot commands out to "scartch"
+if [[ "$(pwd)" == $HOME/Code ]]; then
+    clear
+    return
+fi
+tmux new-window -dn scratch
+tmux new-window -dn git
+tmux new-window -dn server
+tmux send-keys -t git "lazygit" C-m
+tmux send-keys -t server "npm run start" C-m
+vim .
+clear
