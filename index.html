@@ -4,29 +4,50 @@
     <title>McWheel</title>
     <style>
         body {
-            margin: 0;
-            color: #ccc;
+            margin: 1em;
+            color: #fff;
             background-color: #101010;
             text-align: center;
         }
 
-        #screen {
-            border: 0;
+        label {
+            display: block;
         }
 
-        #speed {
-            display: block;
-            margin: auto;
-            padding: 3em;
+        #items-container {
+            margin: 2em auto;
+            width: 300px;
+            text-align: left;
+        }
+
+        #items {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .del-btn {
+            font-size: 10px;
+            line-height: 15px;
+            width: 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
         }
     </style>
     <script type="module" src="./src/main.js"></script>
 </head>
 
 <body>
-    <input id="speed" type="range" min="0" max="100">
-    <div id="speedDisplay"></div>
-    <canvas id="screen" width="800" height="800" />
+    <h1>McWheel</h1>
+    <canvas id="screen" width="600" height="600"></canvas>
+    <div id="items-container">
+        <input id="item" type="text"></input>
+        <button id="add-btn">L&auml;gg till</button>
+        <div>
+            <ul id="items">
+            </ul>
+        </div>
+    </div>
 </body>
 
 </html>

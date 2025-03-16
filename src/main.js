@@ -1,64 +1,20 @@
+import Wheel from "./Wheel.js";
 import gl from "gamelib";
-
-class Wheel {
-    constructor(center, radius, colors) {
-        this.center = center;
-        this.radius = radius;
-        this.colors = colors;
-        this.angle = 0;
-        this.speed = 0;
-    }
-
-    update(deltaTime) {
-        this.speed = this.speed > 0.1 ? this.speed - this.speed * 0.01 : 0;
-        this.angle += this.speed * deltaTime;
-    }
-
-    draw(ctx) {
-        var sliceSize = Math.PI * 2 / this.colors.length;
-        this.colors.forEach((color, idx) => {
-            ctx.beginPath();
-            ctx.moveTo(this.center.x, this.center.y);
-            ctx.arc(
-                this.center.x,
-                this.center.y,
-                this.radius,
-                this.angle + idx * sliceSize,
-                this.angle + (idx + 1) * sliceSize)
-            ctx.fillStyle = color;
-            ctx.fill();
-        });
-    }
-}
-
-
+import { setupInputControl } from "./input.js";
+import { updateItemsList } from "./itemsList.js";
+import { getFromStore } from "./store.js";
 
 var canvas = document.getElementById("screen");
 var ctx = canvas.getContext("2d");
-
-function setupMouseControl(canvas, wheel) {
-    ["mousedown", "mousemove"].forEach(eventName => {
-        canvas.addEventListener(eventName, event => {
-            if (event.buttons === 1) {
-                wheel.speed = 100;
-            }
-        });
-    });
-
-    canvas.addEventListener("contextmenu", event => {
-        event.preventDefault();
-    });
-}
+ctx.globalAlpha = 0.3;
 
 var center = { x: canvas.width / 2, y: canvas.height / 2 };
-var colors = ["red", "green", "blue"];
-var wheel = new Wheel(center, canvas.width * 0.4, colors);
-setupMouseControl(canvas, wheel);
+var wheel = new Wheel(center, canvas.width * 0.45, getFromStore());
+setupInputControl(canvas, wheel);
+updateItemsList(wheel);
 
 function update(deltaTime) {
-    var speed = document.getElementById("speed").value;
-    document.getElementById("speedDisplay").innerHTML = speed;
-    wheel.update(deltaTime, speed);
+    wheel.update(deltaTime);
     wheel.draw(ctx);
 }
 
